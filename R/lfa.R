@@ -269,9 +269,12 @@ model.gof <- sHWE
 
 inverse_2x2 <- function(X) {
     denom <- X[1]*X[4]-X[2]*X[3]
-    stopifnot(denom != 0)
-    matrix( c(X[4], -X[2],
-              -X[3], X[1]), 2, 2) / denom
+    if(denom == 0){
+        matrix( rep(NA, 4), 2, 2) 
+    }else{
+        matrix( c(X[4], -X[2],
+                  -X[3], X[1]), 2, 2) / denom
+    }
 }
 
 gof.stat.snp <- function(snp, LF){
